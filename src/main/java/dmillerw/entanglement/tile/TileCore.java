@@ -28,6 +28,36 @@ public class TileCore extends TileEntity {
 
     }
 
+    private boolean firstTick = true;
+
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+
+        if (firstTick) {
+            onBlockInitialized();
+            firstTick = false;
+        }
+    }
+
+    @Override
+    public void invalidate() {
+        onBlockRemoved();
+    }
+
+    @Override
+    public void onChunkUnload() {
+        onBlockRemoved();
+    }
+
+    public void onBlockInitialized() {
+
+    }
+
+    public void onBlockRemoved() {
+
+    }
+
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
