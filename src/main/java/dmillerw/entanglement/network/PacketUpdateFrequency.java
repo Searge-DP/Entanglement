@@ -3,7 +3,7 @@ package dmillerw.entanglement.network;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import dmillerw.entanglement.entanglement.FrequencyHandler;
+import dmillerw.entanglement.tile.IFreqProvider;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -59,12 +59,12 @@ public class PacketUpdateFrequency implements IMessage {
         @Override
         public IMessage onMessage(PacketUpdateFrequency message, MessageContext ctx) {
             World world = ctx.getServerHandler().playerEntity.worldObj;
-            FrequencyHandler handler = (FrequencyHandler) world.getTileEntity(message.x, message.y, message.z);
+            IFreqProvider handler = (IFreqProvider) world.getTileEntity(message.x, message.y, message.z);
             if (handler != null) {
                 if (message.type == 1) {
-                    handler.changeFrequency(handler.getFrequency() + 1);
+                    handler.setFrequency(handler.getFrequency() + 1);
                 } else if (message.type == 0) {
-                    handler.changeFrequency(handler.getFrequency() - 1);
+                    handler.setFrequency(handler.getFrequency() - 1);
                 }
                 world.markBlockForUpdate(message.x, message.y, message.z);
             }

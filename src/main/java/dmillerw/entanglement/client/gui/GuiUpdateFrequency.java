@@ -1,7 +1,7 @@
 package dmillerw.entanglement.client.gui;
 
-import dmillerw.entanglement.entanglement.FrequencyHandler;
 import dmillerw.entanglement.network.PacketUpdateFrequency;
+import dmillerw.entanglement.tile.IFreqProvider;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +26,7 @@ public class GuiUpdateFrequency extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float button) {
         super.drawScreen(mouseX, mouseY, button);
-        String freq = Integer.toString(((FrequencyHandler)handler).getFrequency());
+        String freq = Integer.toString(((IFreqProvider)handler).getFrequency());
         drawCenteredString(mc.fontRenderer, freq, width / 2, height / 2 - 50, 0xFFFFFF);
     }
 
